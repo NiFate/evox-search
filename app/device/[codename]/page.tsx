@@ -40,8 +40,9 @@ export default function DevicePage() {
         <Card className="w-full max-w-md">
           <CardContent className="p-6 space-y-4">
             <div className="space-y-2">
-              <h3 className="text-2xl font-bold">{data?.meta.device}</h3>
+              <h3 className="text-2xl font-bold">{data.meta.device}</h3>
               <div className="flex flex-row gap-2">
+                <Badge variant="secondary">{data.meta.oem}</Badge>
                 <Badge variant="secondary">{params.codename}</Badge>
               </div>
             </div>
@@ -49,11 +50,11 @@ export default function DevicePage() {
             <div className="grid gap-3">
               <div className="flex items-center justify-between">
                 <span className="text-muted-foreground">Maintainer</span>
-                <Badge variant="secondary">{data?.meta.maintainer}</Badge>
+                <Badge variant="secondary">{data.meta.maintainer}</Badge>
               </div>
               <div className="flex items-center justify-between">
                 <span className="text-muted-foreground">Evolution X</span>
-                <Badge variant="secondary">{data?.meta.version}</Badge>
+                <Badge variant="secondary">{data.meta.version}</Badge>
               </div>
               <div className="flex items-center justify-between">
                 <span className="text-muted-foreground">Android</span>
@@ -68,6 +69,12 @@ export default function DevicePage() {
               <div className="flex items-center justify-between">
                 <span className="text-muted-foreground">Changelog</span>
                 <Link href={`https://raw.githubusercontent.com/Evolution-X/OTA/udc/changelogs/${params.codename}.txt`} target="_blank">
+                  <Badge variant="secondary">Show</Badge>
+                </Link>
+              </div>
+              <div className="flex items-center justify-between">
+                <span className="text-muted-foreground">XDA Thread</span>
+                <Link href={data.meta.forum} target="_blank">
                   <Badge variant="secondary">Show</Badge>
                 </Link>
               </div>
