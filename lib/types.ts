@@ -1,3 +1,5 @@
+import { z } from "zod"
+
 export interface OTAData {
   meta: OTAMeta
 }
@@ -38,3 +40,8 @@ export interface GitLinks {
   git: string
   html: string
 }
+
+export const DeviceSearchScheme = z.object({
+  codename: z.string().min(1, { message: "You have not entered a codename for the device" }),
+})
+

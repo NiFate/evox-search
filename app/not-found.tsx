@@ -3,6 +3,7 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card"
 import { Icon } from '@iconify/react';
+import Link from "next/link";
 
 export default function NotFoundPage() {
   return (
@@ -17,9 +18,9 @@ export default function NotFoundPage() {
             <Icon icon="tabler:mood-sad-filled" width="72" height="72" className="text-zinc-300" />
           </div>
           <hr></hr>
-          <div className="flex flex-col gap-2 justify-center">
-            <Button variant="secondary" className="w-full">Back to search</Button>
-          </div>
+          <Link href="/">
+              <Button variant="secondary" className="w-full">Back to search</Button>
+            </Link>
         </CardContent>
       </Card>
     </main>

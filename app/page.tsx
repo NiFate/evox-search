@@ -9,14 +9,18 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
-import { Form, FormControl, FormField, FormItem, FormLabel } from "@/components/ui/form"
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { navigate } from "@/lib/navigate"
+import { DeviceSearchScheme } from "@/lib/types"
 import { useForm } from "react-hook-form"
+import { z } from "zod"
+import { zodResolver } from "@hookform/resolvers/zod"
+
 
 export default function Home() {
 
-  const form = useForm({ defaultValues: { codename: "" } })
+  const form = useForm<z.infer<typeof DeviceSearchScheme>>({ resolver: zodResolver(DeviceSearchScheme), defaultValues: { codename: "" } })
 
   const onSubmit = (data: any) => { navigate(`/device/${data.codename}`) }
 
@@ -41,6 +45,7 @@ export default function Home() {
                         <FormControl>
                           <Input placeholder="Enter the codename of your device" {...field} />
                         </FormControl>
+                        <FormMessage />
                       </FormItem>
                     )}
                   />
