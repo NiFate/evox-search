@@ -11,12 +11,12 @@ export function isOutdated(version: string, minimalVersion: string) {
   return compare(minimalVersion, version, '>');
 }
 
-export function isIceCream(iceCreamVersion: string, upsideVersion: string) {
-  return compare(iceCreamVersion, upsideVersion, '>');
+export function isIceCream(deviceVersion: string, iceCreamVersion: string) {
+  return compare(deviceVersion, iceCreamVersion, '>=');
 }
 
 export function getDaysDifference(timestamp: number): string {
-  
+
   const now = new Date();
   const givenDate = fromUnixTime(timestamp);
   const difference = differenceInDays(now, givenDate);

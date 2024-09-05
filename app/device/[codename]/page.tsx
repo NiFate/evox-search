@@ -31,7 +31,7 @@ export default function DevicePage() {
 
     const buildDate = format(fromUnixTime(data?.meta.timestamp), "dd.MM.yyyy");
     const outdated = isOutdated(data.meta.version, "9.2");
-    const androidVersion = isIceCream(data.meta.version, "9.3");
+    const androidVersion = isIceCream(data.meta.version, "10.0");
     const buildDiferrence = getDaysDifference(data.meta.timestamp);
 
     return (
