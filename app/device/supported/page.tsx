@@ -14,6 +14,7 @@ import { useDevices } from "@/hooks/useDevices";
 import Link from "next/link";
 import Loader from "@/components/loader";
 import { firstBy } from "thenby"
+import { differenceInHours } from "date-fns";
 
 export default function TestPage() {
 
@@ -26,6 +27,8 @@ export default function TestPage() {
     acc[oemKey] = (acc[oemKey] || 0) + 1;
     return acc;
   }, {});
+
+  const currentTime = new Date().getTime();
 
   return (
     <main className="flex flex-col items-center justify-center min-h-screen px-4 py-12 sm:px-6 lg:px-8 gap-4">
@@ -48,19 +51,31 @@ export default function TestPage() {
                     const oemB = oemCounts[b.meta.oem.toLowerCase()] || 0;
                     return oemB - oemA;
                   })
-                ).map((device, index) => (
-                  <TableRow key={index}>
-                    <TableCell className="font-medium">{device.meta.oem}</TableCell>
-                    <TableCell className="font-medium">
-                      <Link href={`/device/${device.codename}`}>
-                        {device.meta.device}
-                      </Link>
-                    </TableCell>
-                    <TableCell>
-                      <Badge variant="secondary">{device.codename}</Badge>
-                    </TableCell>
-                  </TableRow>
-                ))
+                ).map((device, index) => {
+
+                  const lastUpdateTime = device.meta.timestamp * 1000;
+                  const isRecentlyUpdated = differenceInHours(currentTime, lastUpdateTime) < 24;
+
+                  return (
+                    <TableRow key={index}>
+                      <TableCell className="font-medium">{device.meta.oem}</TableCell>
+                      <TableCell className="font-medium">
+                        <Link href={`/device/${device.codename}`}>
+                          {device.meta.device}
+                          {isRecentlyUpdated && (
+                            <Badge variant="secondary" className="ml-2 bg-green-600/70 pointer-events-none">New Update!</Badge>
+                          )}
+                        </Link>
+                      </TableCell>
+                      <TableCell>
+                        <Badge variant="secondary">{device.codename}</Badge>
+                      </TableCell>
+                    </TableRow>
+                  )
+                }
+
+
+                )
               }
             </TableBody>
           </Table>
