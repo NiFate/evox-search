@@ -5,6 +5,7 @@ import { ThemeProvider } from "@/providers/theme-provider"
 import { ReactQueryClientProvider } from '@/providers/query-provider'
 import Navbar from "@/components/navbar";
 import Footer from "@/components/footer";
+import SiteAlert from "@/components/site-alert";
 
 const font = Nunito({ subsets: ["latin"] });
 
@@ -29,6 +30,7 @@ export default function RootLayout({
             disableTransitionOnChange
           >
             <Navbar />
+            <SiteAlert />
             {children}
             <Footer />
           </ThemeProvider>
