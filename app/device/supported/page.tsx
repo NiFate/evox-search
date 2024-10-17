@@ -54,7 +54,8 @@ export default function TestPage() {
                 ).map((device, index) => {
 
                   const lastUpdateTime = device.meta.timestamp * 1000;
-                  const isRecentlyUpdated = differenceInHours(currentTime, lastUpdateTime) < 24;
+                  const recentlyUpdateHours = 72;
+                  const isRecentlyUpdated = differenceInHours(currentTime, lastUpdateTime) < recentlyUpdateHours;
 
                   return (
                     <TableRow key={index}>
@@ -73,8 +74,6 @@ export default function TestPage() {
                     </TableRow>
                   )
                 }
-
-
                 )
               }
             </TableBody>

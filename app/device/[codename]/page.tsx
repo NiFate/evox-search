@@ -30,9 +30,10 @@ export default function DevicePage() {
   if (isSuccess) {
 
     const buildDate = format(fromUnixTime(data?.meta.timestamp), "dd.MM.yyyy");
-    const outdated = isOutdated(data.meta.version, "9.2");
     const androidVersion = isIceCream(data.meta.version, "10.0");
     const buildDiferrence = getDaysDifference(data.meta.timestamp);
+    const outdatedDays = 60
+    const isOutdated = buildDiferrence >= outdatedDays
 
     return (
       <main className="flex flex-col items-center justify-center min-h-screen px-4 py-12 sm:px-6 lg:px-8 gap-4">
@@ -80,15 +81,15 @@ export default function DevicePage() {
               </div>
               <div className="flex items-center justify-between">
                 <span className="text-muted-foreground">Status</span>
-                <Badge variant="secondary" className={cn(outdated ? "text-orange-400" : "text-green-500")}>
+                <Badge variant="secondary" className={cn(isOutdated ? "text-orange-400" : "text-green-500")}>
                   Maintained
                 </Badge>
               </div>
-              {outdated ? (
+              {isOutdated ? (
                 <div className="flex flex-row gap-2 items-center justify-center">
                   <Icon icon="iconoir:warning-triangle-solid" className="text-orange-400" width="32" height="32" />
                   <span className="text-muted-foreground text-xs text-orange-400">Your device has not received updates for a
-                    {buildDiferrence} days, support may be discontinued</span>
+                    {" "}{buildDiferrence} days, support may be discontinued</span>
                 </div>
               ) : ""}
             </div>
